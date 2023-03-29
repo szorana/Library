@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
@@ -21,11 +20,19 @@ public class BookRController {
 
     //All Books -> works
     @GetMapping
-    private List<Book> getAllBooks(){
+    public List<Book> getAllBooks(){
         return bookService.listAll();
     }
 
-    //Add New Book -> todo
+    //Get Book -> works
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getBookBtId(@PathVariable Long id){
+        return this.bookService.findById(id)
+                .map(book -> ResponseEntity.ok().body(book))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    //Add New Book -> works
     @PostMapping("/addNewBook")
     public ResponseEntity<Book> addBook(@RequestBody Book book){
         return this.bookService.save(book)
@@ -43,21 +50,12 @@ public class BookRController {
         return ResponseEntity.badRequest().build();
     }
 
-    //Edit Book -> todo
+    //Edit Book -> works
     @PutMapping("/edit/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book){
-        Optional<Book> optionalBook = this.bookService.findById(id);
-        if (optionalBook.isPresent()){
-            Book foundBook = optionalBook.get();
-            foundBook.setName(book.getName());
-            foundBook.setCategory(book.getCategory());
-            foundBook.setAuthor(book.getAuthor());
-
-            this.bookService.save(foundBook);
-            return ResponseEntity.ok(foundBook);
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.bookService.edit(id, book)
+                .map(b -> ResponseEntity.ok().body(b))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     //Mark as Taken Book -> works

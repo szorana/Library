@@ -16,7 +16,7 @@ public interface BookService {
 
     Optional<Book> findById(Long bookId);
 
-    Optional<Book> edit(Long id);
+    Optional<Book> edit(Long bookId, Book book);
 
     Book markAsTaken(Book book);
 
