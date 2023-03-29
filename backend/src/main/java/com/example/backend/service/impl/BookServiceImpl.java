@@ -10,7 +10,6 @@ import com.example.backend.repository.AuthorRepository;
 import com.example.backend.repository.BookRepository;
 import com.example.backend.service.BookService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +31,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional
     public Optional<Book> save(Book book) {
         Author author = this.authorRepository.findById(book.getAuthor().getId())
                 .orElseThrow( () -> new AuthorNotFoundException(book.getAuthor().getId()));
@@ -62,13 +60,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> edit(Long id) {
-        /* Book b = this.bookRepository.findById(id)
+    public Optional<Book> edit(Long bookId, Book book) {
+        Book anotherOBook = this.bookRepository.findById(bookId)
                 .orElseThrow(BookNotFoundException::new);
 
-        book.setName();*/
+        Author author = this.authorRepository.findById(book.getAuthor().getId())
+                        .orElseThrow(() -> new AuthorNotFoundException(book.getAuthor().getId()));
 
-        return Optional.empty();
+        anotherOBook.setName(book.getName());
+        anotherOBook.setAuthor(author);
+        anotherOBook.setCategory(book.getCategory());
+        anotherOBook.setAvailableCopies(book.getAvailableCopies());
+
+        return Optional.of(this.bookRepository.save(anotherOBook));
     }
 
     @Override
