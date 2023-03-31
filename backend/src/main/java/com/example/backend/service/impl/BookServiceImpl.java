@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 
 import com.example.backend.model.Author;
 import com.example.backend.model.Book;
+import com.example.backend.model.dto.BookDto;
 import com.example.backend.model.enums.BookCategory;
 import com.example.backend.model.exceptions.AuthorNotFoundException;
 import com.example.backend.model.exceptions.BookNotAvailableException;
@@ -36,7 +37,7 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow( () -> new AuthorNotFoundException(book.getAuthor().getId()));
 
         this.bookRepository.deleteBookByName(book.getName());
-        Book newBook = new Book(book.getName(), book.getCategory(), author);
+        Book newBook = new Book(book.getName(), book.getCategory(), author, 100);
         this.bookRepository.save(newBook);
 
         return Optional.of(newBook);
@@ -48,7 +49,7 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow( () -> new AuthorNotFoundException(authorId));
 
         this.bookRepository.deleteBookByName(name);
-        Book newBook = new Book(name, category, author);
+        Book newBook = new Book(name, category, author, 100);
         this.bookRepository.save(newBook);
 
         return Optional.empty();
@@ -65,7 +66,23 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(BookNotFoundException::new);
 
         Author author = this.authorRepository.findById(book.getAuthor().getId())
-                        .orElseThrow(() -> new AuthorNotFoundException(book.getAuthor().getId()));
+                .orElseThrow(() -> new AuthorNotFoundException(book.getAuthor().getId()));
+
+        anotherOBook.setName(book.getName());
+        anotherOBook.setAuthor(author);
+        anotherOBook.setCategory(book.getCategory());
+        anotherOBook.setAvailableCopies(book.getAvailableCopies());
+
+        return Optional.of(this.bookRepository.save(anotherOBook));
+    }
+
+    @Override
+    public Optional<Book> edit(Long bookId, BookDto book) {
+        Book anotherOBook = this.bookRepository.findById(bookId)
+                .orElseThrow(BookNotFoundException::new);
+
+        Author author = this.authorRepository.findById(book.getAuthor())
+                        .orElseThrow(() -> new AuthorNotFoundException(book.getAuthor()));
 
         anotherOBook.setName(book.getName());
         anotherOBook.setAuthor(author);

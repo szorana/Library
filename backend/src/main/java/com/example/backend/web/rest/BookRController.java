@@ -1,6 +1,7 @@
 package com.example.backend.web.rest;
 
 import com.example.backend.model.Book;
+import com.example.backend.model.dto.BookDto;
 import com.example.backend.model.exceptions.BookNotFoundException;
 import com.example.backend.service.BookService;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class BookRController {
 
     //Edit Book -> works
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book){
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookDto book){
         return this.bookService.edit(id, book)
                 .map(b -> ResponseEntity.ok().body(b))
                 .orElseGet(() -> ResponseEntity.badRequest().build());

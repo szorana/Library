@@ -26,14 +26,14 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, BookCategory category, Author author) {
+    public Book(String name, BookCategory category, Author author, int availableCopies) {
         this.name = name;
         this.category = category;
         this.author = author;
-        this.availableCopies = 1;
+        this.availableCopies = availableCopies;
     }
 
     public void markAsTaken(){
-        this.availableCopies = 0;
+        this.availableCopies--;
     }
 }
