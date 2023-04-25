@@ -36,7 +36,7 @@ public class BookRController {
 
     //Add New Book -> works
     @PostMapping("/addNewBook")
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
+    public ResponseEntity<Book> addBook(@RequestBody BookDto book){
         return this.bookService.save(book)
                 .map(book1 -> ResponseEntity.ok().body(book1))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
