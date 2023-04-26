@@ -11,7 +11,7 @@ public interface BookService {
 
     List<Book> listAll();
 
-    Optional<Book> save(Book book);
+    Optional<Book> save(BookDto book);
 
     Optional<Book> save(String name, BookCategory category, Long authorId);
 

@@ -32,9 +32,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> save(Book book) {
-        Author author = this.authorRepository.findById(book.getAuthor().getId())
-                .orElseThrow( () -> new AuthorNotFoundException(book.getAuthor().getId()));
+    public Optional<Book> save(BookDto book) {
+        Author author = this.authorRepository.findById(book.getAuthor())
+                .orElseThrow( () -> new AuthorNotFoundException(book.getAuthor()));
 
         this.bookRepository.deleteBookByName(book.getName());
         Book newBook = new Book(book.getName(), book.getCategory(), author, 100);
