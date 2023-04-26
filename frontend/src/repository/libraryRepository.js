@@ -7,18 +7,20 @@ const LibraryService= {
     getBook: (id) => {
       return  axios.get(`/books/${id}`);
     },
-    addBook: (name, category, author) => {
+    addBook: (name, category, authorID, availableCopies) => {
         return axios.post("/books/addNewBook", {
             "name": name,
             "category": category,
-            "author": author
+            "authorID": authorID,
+            "availableCopies": availableCopies
         });
     },
-    updateBook: (id, name, category, author) => {
+    updateBook: (id, name, category, authorID, availableCopies) => {
         return axios.put(`/books/edit/${id}`, {
             "name": name,
             "category": category,
-            "author": author
+            "authorID": authorID,
+            "availableCopies": availableCopies
         });
     },
     deleteBook: (id) => {
@@ -29,6 +31,12 @@ const LibraryService= {
     },
     fetchAuthors: () => {
         return axios.get("/authors");
+    },
+    fetchCountries: () => {
+        return axios.get("/countries")
+    },
+    fetchCategories: () => {
+        return axios.get("/categories")
     }
 }
 
