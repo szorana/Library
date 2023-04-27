@@ -24,6 +24,16 @@ class BookList extends React.Component{
         return (
             <div className={"container mm-4 mt-5"}>
                 <div className={"row"}>
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-md-6 col-12">
+                                <Link className={"btn btn-block btn-dark"} to={"/books/addNewBook"}>
+                                    Add new book
+                                </Link>
+                            </div>
+                        </div>
+
+                    </div>
                     <div className={"table-responsive"}>
                         <table className={"table table-striped"}>
                             <thead>
@@ -39,18 +49,10 @@ class BookList extends React.Component{
                             </tbody>
                         </table>
                     </div>
-                    <div className="col mb-3">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12">
-                                <Link className={"btn btn-block btn-dark"}
-                                      to={"/books/addNewBook"}>
-                                    Add new book</Link>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
+                <ReactPaginate previousLabel={"Back"}
+                               nextLabel={"Next"}
                                breakLabel={<a href="/#">...</a>}
                                breakClassName={"break-me"}
                                pageClassName={"ml-1"}
