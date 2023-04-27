@@ -13,13 +13,16 @@ public interface BookService {
 
     Optional<Book> save(BookDto book);
 
-    Optional<Book> save(String name, BookCategory category, Long authorId);
+
+   /* Optional<Book> save(String name, String category, Long authorId);*/
 
     Optional<Book> findById(Long bookId);
 
     Optional<Book> edit(Long bookId, BookDto book);
 
+/*
     Optional<Book> edit(Long bookId, Book book);
+*/
 
     Book markAsTaken(Book book);
 

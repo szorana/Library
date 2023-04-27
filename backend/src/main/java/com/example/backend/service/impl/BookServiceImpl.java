@@ -43,24 +43,25 @@ public class BookServiceImpl implements BookService {
         return Optional.of(newBook);
     }
 
-    @Override
-    public Optional<Book> save(String name, BookCategory category, Long authorId) {
+   /* @Override
+    public Optional<Book> save(String name, String category, Long authorId) {
         Author author = this.authorRepository.findById(authorId)
                 .orElseThrow( () -> new AuthorNotFoundException(authorId));
+        BookCategory category1 = BookCategory.valueOf(category);
 
         this.bookRepository.deleteBookByName(name);
-        Book newBook = new Book(name, category, author, 100);
-        this.bookRepository.save(newBook);
+        Book newBook = new Book(name, category1, author, 100);
 
-        return Optional.empty();
-    }
+        this.bookRepository.save(newBook);
+        return Optional.of(newBook);
+    }*/
 
     @Override
     public Optional<Book> findById(Long bookId) {
         return this.bookRepository.findById(bookId);
     }
 
-    @Override
+   /* @Override
     public Optional<Book> edit(Long bookId, Book book) {
         Book anotherOBook = this.bookRepository.findById(bookId)
                 .orElseThrow(BookNotFoundException::new);
@@ -73,8 +74,9 @@ public class BookServiceImpl implements BookService {
         anotherOBook.setCategory(book.getCategory());
         anotherOBook.setAvailableCopies(book.getAvailableCopies());
 
-        return Optional.of(this.bookRepository.save(anotherOBook));
-    }
+        this.bookRepository.save(anotherOBook);
+        return Optional.of(anotherOBook);
+    }*/
 
     @Override
     public Optional<Book> edit(Long bookId, BookDto book) {
@@ -89,7 +91,8 @@ public class BookServiceImpl implements BookService {
         anotherOBook.setCategory(book.getCategory());
         anotherOBook.setAvailableCopies(book.getAvailableCopies());
 
-        return Optional.of(this.bookRepository.save(anotherOBook));
+        this.bookRepository.save(anotherOBook);
+        return Optional.of(anotherOBook);
     }
 
     @Override

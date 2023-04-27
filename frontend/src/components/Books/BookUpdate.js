@@ -7,7 +7,7 @@ const BookUpdate = (props) => {
     const [formData, updateFormData] = React.useState({
         name: "",
         category: "",
-        authorID: 1,
+        authorID: 0,
         availableCopies: 0
     });
 
@@ -21,8 +21,8 @@ const BookUpdate = (props) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         const name = formData.name!== "" ? formData.name : props.book.name;
-        const category = formData.category;
-        const authorID = formData.authorID!== 0 ? formData.authorID : props.book.authorID;;
+        const category = formData.category.toString() !== "" ? formData.category : props.book.category;
+        const authorID = formData.authorID!== 0 ? formData.authorID : props.book.authorID.id;
         const availableCopies = formData.availableCopies !== 0 ? formData.availableCopies : props.book.availableCopies;
         props.onEditBook(props.book.id,name, category, authorID, availableCopies);
         history.push("/books");
@@ -45,28 +45,41 @@ const BookUpdate = (props) => {
                     <div className="form-group">
                         <label>Category</label>
                         <select name="category" className="form-control" onChange={handleChange}>
-                            {props.categories.map((book) =>
-                                <option value={book}>{book}</option>
-                            )}
+                            {props.categories.map( (term) => {
+                                if(props.book.category !== undefined &&
+                                    props.book.category === term)
+                                    return <option selected={props.book.category}
+                                                   value={term.toString()}
+                                                   key={term.toString()}> {term.toString()}</option>
+                                else return <option value={term.toString()} key={term.toString()}> {term.toString()}</option>
+                            })
+
+                            }
                         </select>
                     </div>
                     <div className="form-group">
                         <label>Author</label>
                         <select name="authorID" className="form-control" onChange={handleChange}>
-                            {props.authors.map((term) => (
-                                <option key={term.id} value={term.id}>
-                                    {term.name}
-                                </option>
-                            ))}
+                            {props.authors.map( (term) => {
+                                if(props.book.authorID !== undefined &&
+                                props.book.authorID.id === term.id)
+                                    return <option selected={props.book.authorID.id}
+                                                    value={term.id}
+                                                    key={term.id}> {term.name}</option>
+                                else return <option value={term.id} key={term.id}> {term.name}</option>
+                            })
+
+                            }
                         </select>
                     </div>
                     <div className="form-group">
                         <label htmlFor="quantity">Available Copies</label>
-                        <input type="text"
+                        <input type="number"
                                className="form-control"
                                id="availableCopies"
                                name="availableCopies"
                                placeholder={props.book.availableCopies}
+                               required
                                onChange={handleChange}
                         />
                     </div>
