@@ -8,7 +8,7 @@ const BookAdd = (props) => {
         name: "",
         category: "",
         authorID: 1,
-        availableCopies: 0
+        availableCopies: 1
     })
 
     const handleChange = (e) => {

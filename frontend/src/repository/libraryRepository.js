@@ -27,7 +27,7 @@ const LibraryService= {
         return axios.delete(`/books/delete/${id}`);
     },
     markAsTaken: (id) => {
-        return axios.put(`/books/${id}/taken}`)
+        return axios.put(`/books/${id}/taken`)
     },
     fetchAuthors: () => {
         return axios.get("/authors");

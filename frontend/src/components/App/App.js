@@ -32,13 +32,11 @@ class App extends Component{
                         <Route path={"/authors"} exact render={() =>
                             <Authors authors={this.state.authors}/>}/>
                         <Route path={"/books/addNewBook"} exact render={() =>
-                            <BookAdd books={this.state.books}
-                                     categories={this.state.categories}
+                            <BookAdd categories={this.state.categories}
                                      authors={this.state.authors}
                                      onAddBook={this.addBook}/>}/>
                         <Route path={"/books/edit/:id"} exact render={() =>
-                            <BookUpdate books={this.state.books}
-                                        categories={this.state.categories}
+                            <BookUpdate categories={this.state.categories}
                                         authors={this.state.authors}
                                         onEditBook={this.editBook}
                                         book={this.state.selectedBook}/>}/>

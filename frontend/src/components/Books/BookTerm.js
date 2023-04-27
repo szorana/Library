@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 const BookTerm = (props) => {
     return (
-        <tr>
+        <tr key={props.book.id}>
             <td>{props.book.name}</td>
             <td>{props.book.category}</td>
             <td>{props.book.authorID}</td>
