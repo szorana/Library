@@ -7,7 +7,7 @@ const BookAdd = (props) => {
     const [formData, updateFormData] = React.useState({
         name: "",
         category: "",
-        authorID: 1,
+        author: 1,
         availableCopies: 1
     })
 
@@ -18,14 +18,22 @@ const BookAdd = (props) => {
         })
     }
 
+    /*const handleChange = (e) => {
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.name === "author" ? e.target.value : e.target.value.trim()
+        });
+    }*/
+
+
     const onFormSubmit = (e) => {
         e.preventDefault();
         const name = formData.name;
         const category = formData.category;
-        const authorID = formData.authorID;
+        const author = formData.author;
         const availableCopies = formData.availableCopies;
 
-        props.onAddBook(name, category, authorID, availableCopies);
+        props.onAddBook(name, category, author, availableCopies);
         history.push("/books");
     }
 
@@ -44,6 +52,7 @@ const BookAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
                     <div className="form-group">
                         <label>Category</label>
                         <select
@@ -59,6 +68,7 @@ const BookAdd = (props) => {
                             ))}
                         </select>
                     </div>
+                    <br/>
                     <div className="form-group">
                         <label>Author</label>
                         <select name="author"
@@ -69,6 +79,7 @@ const BookAdd = (props) => {
                             )}
                         </select>
                     </div>
+                    <br/>
                     <div className="form-group">
                         <label htmlFor="availableCopies">Available copies</label>
                         <input
@@ -76,11 +87,12 @@ const BookAdd = (props) => {
                             className="form-control"
                             id="availableCopies"
                             name="availableCopies"
-                            placeholder="Enter available copies"
-                            required
+                            placeholder="100"
+                            disabled
                             onChange={handleChange}
                         />
                     </div>
+                    <br/>
                     <button id="submit" type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>

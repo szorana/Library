@@ -111,8 +111,8 @@ class App extends Component{
             });
     }
 
-    addBook = (name, category, authorID, availableCopies) => {
-        LibraryService.addBook(name, category, authorID, availableCopies)
+    addBook = (name, category, author, availableCopies) => {
+        LibraryService.addBook(name, category, author, availableCopies)
             .then(() => {
                 this.loadBooks();
             });
@@ -127,8 +127,8 @@ class App extends Component{
             })
     }
 
-    editBook = (id, name, category, authorID, availableCopies) => {
-        LibraryService.updateBook(id, name, category, authorID, availableCopies)
+    editBook = (id, name, category, author, availableCopies) => {
+        LibraryService.updateBook(id, name, category, author, availableCopies)
             .then(() => {
                 this.loadBooks();
             });

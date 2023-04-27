@@ -1,6 +1,5 @@
 package com.example.backend.model.dto;
 
-import com.example.backend.model.Author;
 import com.example.backend.model.enums.BookCategory;
 import lombok.Data;
 import lombok.NoArgsConstructor;
